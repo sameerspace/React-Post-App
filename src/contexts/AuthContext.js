@@ -13,12 +13,13 @@ const AuthProvider = ({children}) => {
     const [currentUser,setCurrentUser] = useState({id:null,username:null,password:null,email:null})
     const [isLoggedIn,setIsLoggedIn] = useState(false)
     const navigate = useNavigate()
+    const generateId = () => Math.ceil(Math.random() * 100000)
 
 
 
     const register = (username,email,password) => {
         let user = {
-            id: '1',
+            id: generateId(),
             username: username,
             password: password,
             email: email,

@@ -1,8 +1,8 @@
 import { Button, Container, Stack, TextField, Typography } from "@mui/material";
 import ResponsiveAppBar from "../components/AppBar";
 import { useState } from "react";
-import { v4 as uuid } from "uuid";
 import { useNavigate } from "react-router-dom";
+import { usePosts } from "../contexts/PostContext";
 
 const CreatePostPage = () => {
     
@@ -11,18 +11,24 @@ const CreatePostPage = () => {
     const [title,setTitle] = useState()
     const [body,setBody] = useState()
 
+    const { addPost } = usePosts()
     
+    const generateId = () => Math.ceil(Math.random() * 1000)
+
     const createPost = ()=>{
-        //POST to API
-        let user = {
-            'userId': 1, // GET USER ID,
-            'id': uuid(),
-            'title': title,
+        
+        const user = JSON.parse(localStorage.getItem('user'))
+
+        let post = {
+            'id': generateId(),
+            'userId': user.id,
+            'title': title, 
             'body': body,
         }
 
-        //post user
-        navigate('/posts')
+        console.log(post)
+        addPost(post)
+        navigate('/my-posts')
     }
     
     return (  

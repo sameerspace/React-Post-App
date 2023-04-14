@@ -9,11 +9,15 @@ const HomePage = () => {
     const auth = useAuth()
     const navigate = useNavigate()
 
+    
     useEffect(()=>{
+
         if(!auth.isLoggedIn){
             navigate('/login')
         }
-    },[auth,navigate])
+    
+    },[])
+    
 
     return ( 
         <>

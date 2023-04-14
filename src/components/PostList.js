@@ -1,20 +1,17 @@
 import {List} from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import PostItem from './PostItem';
+import { usePosts } from '../contexts/PostContext';
 
 
 const PostList = () => {
 
-    const [posts,setPosts] = useState([])
+    const {posts } = usePosts()
 
-    const fetchAndSetPosts =  async () => {
-        const response = await fetch('https://jsonplaceholder.typicode.com/posts')
-        const data = await response.json()
-        setPosts(data)
+
+    if(posts.length <= 0){
+        return <h1>No posts to show.</h1>
     }
-
-    useEffect(()=>fetchAndSetPosts,[])
-
 
     return (
         <List>
