@@ -4,15 +4,13 @@ import { NavLink } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
 const SignInPage = () => {
-
-    const [username,setUsername] = useState('')
-    const [password,setPassword] = useState('')
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
 
     const auth = useAuth()
 
-    const loginUser = ()=>{
-        auth.login(username,password)
-    }
+    const loginUser = () => auth.login(username,password)
+
 
     return (  
         <>

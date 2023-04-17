@@ -1,11 +1,9 @@
-import { Card, CardContent, CardHeader, Typography, Container, Stack, Button, ButtonGroup } from "@mui/material";
-import CommentSection from "./CommentSection";
-import { useNavigate } from "react-router-dom";
-import { usePosts } from "../contexts/PostContext";
-
+import { Card, CardContent, CardHeader, Typography, Container, Stack, Button, ButtonGroup } from "@mui/material"
+import CommentSection from './CommentSection'
+import { useNavigate } from 'react-router-dom'
+import { usePosts } from '../contexts/PostContext'
 
 const PostItem = (props) => {
-
     const navigate = useNavigate()
     const { deletePost } = usePosts()
     const user = JSON.parse(localStorage.getItem('user'))
@@ -15,17 +13,17 @@ const PostItem = (props) => {
             <Card sx={{ height: 200, bgcolor:'grey'}}>
                 <Stack direction={"row"} justifyContent={"space-between"} >
                     <CardHeader title={props.post.title} />
-                    { user.id === props.post.userId ?
+                    { user.id === props.post.userId &&
                     <ButtonGroup variant="text">
                         <Button onClick={()=> navigate('/edit-post', {state:{props}} )} >Edit</Button>
                         <Button onClick={()=>deletePost(props.post.id)}  >Delete</Button>
-                    </ButtonGroup> : null }
+                    </ButtonGroup> }
                 </Stack>
                 <CardContent>
                     <Typography sx={{fontSize:'14px',color: 'black'}}>{props.post.body}</Typography>
                 </CardContent>
             </Card>
-            <CommentSection props={props.post.postId} ></CommentSection>
+            <CommentSection props={props.post.id} ></CommentSection>
         </Container>
     );
 

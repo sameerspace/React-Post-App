@@ -1,18 +1,12 @@
 import {List} from '@mui/material';
-import { useEffect } from 'react';
 import PostItem from './PostItem';
 import { usePosts } from '../contexts/PostContext';
 
-
 const PostList = () => {
-
     const {posts } = usePosts()
 
-
-    if(posts.length <= 0){
-        return <h1>No posts to show.</h1>
-    }
-
+    if(posts.length <= 0) return <h1>No posts to show.</h1>
+    
     return (
         <List>
             {posts.map((post,index)=>(
@@ -20,11 +14,6 @@ const PostList = () => {
                 ))}
         </List>
     );
-
-
-
-
-
 }
 
 

@@ -4,17 +4,14 @@ import { Container,Typography, Stack, TextField, Button } from "@mui/material";
 import { useAuth } from "../contexts/AuthContext";
 
 const RegisterPage = () => {
-
     const [username,setUsername] = useState('')
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
     const auth = useAuth()
 
-
     const register = () => {
         auth.register(username,email,password)
     }
-
 
     return ( 
         <Container sx={{height:'100vh'}}>

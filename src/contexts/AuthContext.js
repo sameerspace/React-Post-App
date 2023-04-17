@@ -10,29 +10,26 @@ export const useAuth = () =>  useContext(AuthContext)
 
 const AuthProvider = ({children}) => {
     
-    const [currentUser,setCurrentUser] = useState({id:null,username:null,password:null,email:null})
-    const [isLoggedIn,setIsLoggedIn] = useState(false)
+    const [currentUser, setCurrentUser] = useState({id:null,username:null,password:null,email:null})
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
     const navigate = useNavigate()
     const generateId = () => Math.ceil(Math.random() * 100000)
 
-
-
-    const register = (username,email,password) => {
+    const register = (username, email, password) => {
         let user = {
             id: generateId(),
             username: username,
             password: password,
             email: email,
         }        
-        localStorage.setItem('user',JSON.stringify(user))
-        localStorage.setItem('isLogged',JSON.stringify(true))
+        localStorage.setItem('user', JSON.stringify(user))
+        localStorage.setItem('isLogged', JSON.stringify(true))
         setCurrentUser(user)
         setIsLoggedIn(true)
-        console.log(localStorage)
         navigate('/posts')
     }
 
-    const login = (username,password) => {
+    const login = (username, password) => {
         let user = JSON.parse(localStorage.getItem('user'))
         if(user){
             if(user.username === username && user.password === password){
@@ -53,16 +50,8 @@ const AuthProvider = ({children}) => {
         navigate('/login')
     }
 
-    const value = {
-        currentUser,
-        isLoggedIn,
-        register,
-        login,
-        logout,
-    }
-
     return (  
-        <AuthContext.Provider value={value} >
+        <AuthContext.Provider value={{currentUser,isLoggedIn,register,login,logout,}}>
             {children}
         </AuthContext.Provider>
     );

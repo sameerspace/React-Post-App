@@ -22,31 +22,28 @@ const PostProvider = ({children}) => {
 
     useEffect(()=>{
         let json = localStorage.getItem('posts')
-        if(json){
-            setPosts(JSON.parse(json))
-        }
+        if(json) setPosts(JSON.parse(json))
     },[])
 
-    const addPost = (post) => {        
+    const addPost = post => {        
         setPosts([...posts,post])
     }
 
-    const deletePost = (postId) => {
-        setPosts(posts.filter((post)=> post.id !== postId))
+    const deletePost = postId => {
+        setPosts(posts.filter((post) => post.id !== postId))
     }
 
-    const updatePost = (updatedPost) => {
-        console.log('updated post',updatedPost)
-        setPosts(posts.map((post)=> ([post.id === updatedPost.id ? updatedPost: post])))
+    const updatePost = updatedPost => {
+        setPosts(posts.map((post) => ([post.id === updatedPost.id ? updatedPost: post])))
     }
 
     const getMyPosts = () => {
         const user = JSON.parse(localStorage.getItem('user'))
-        return posts.filter((post)=> post.userId === user.id)
+        return posts.filter((post) => post.userId === user.id)
     }
 
-    const getPostById = (postId) => {
-        return posts.filter((post)=> post.id === postId)
+    const getPostById = postId => {
+        return posts.filter((post) => post.id === postId)
     }
 
     return (

@@ -4,17 +4,13 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { usePosts } from "../contexts/PostContext";
 
-
 const EditPostPage = () => {
-
     const navigate = useNavigate()
     const location = useLocation()
     const post = location.state.props.post || {} 
     const { updatePost } = usePosts()
-
     const [title, setTitle] = useState(post.title)
-    const [body,setBody] = useState(post.body)
-
+    const [body, setBody] = useState(post.body)
 
     const editPost = () => {
         post.title = title

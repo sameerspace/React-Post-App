@@ -8,18 +8,13 @@ import CreatePostPage from './pages/CreatePost';
 import EditPostPage from './pages/EditPostPage';
 import { usePosts } from './contexts/PostContext';
 import { useEffect } from 'react';
-import { useComments } from './contexts/CommentContext';
 
 
-function App() {
 
-  const { posts, fetchAndSetPosts } = usePosts()
-  const { fetchAndSetComments } = useComments()
+const App = () => {
+  const { fetchAndSetPosts } = usePosts()
 
-  useEffect(()=>fetchAndSetPosts,[])
-  for(let i=0;i<posts.length;i++){
-    fetchAndSetComments(posts[i].id)
-  }
+  useEffect(() => fetchAndSetPosts)
 
   return (
     <Routes>

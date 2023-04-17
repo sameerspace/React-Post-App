@@ -5,12 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { usePosts } from "../contexts/PostContext";
 
 const CreatePostPage = () => {
-    
     const navigate = useNavigate()
-
-    const [title,setTitle] = useState()
-    const [body,setBody] = useState()
-
+    const [title, setTitle] = useState()
+    const [body, setBody] = useState()
     const { addPost } = usePosts()
     
     const generateId = () => Math.ceil(Math.random() * 1000)

@@ -5,20 +5,13 @@ import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
-
     const auth = useAuth()
     const navigate = useNavigate()
 
-    
     useEffect(()=>{
-
-        if(!auth.isLoggedIn){
-            navigate('/login')
-        }
+        if(!auth.isLoggedIn)  navigate('/login')
+    },[auth])
     
-    },[])
-    
-
     return ( 
         <>
             <ResponsiveAppBar></ResponsiveAppBar>

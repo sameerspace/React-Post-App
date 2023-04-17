@@ -9,7 +9,6 @@ import AuthProvider from './contexts/AuthContext';
 import PostProvider from './contexts/PostContext';
 import CommentProvider from './contexts/CommentContext';
 
-
 const theme = createTheme({
   palette: {
     primary: {
@@ -43,7 +42,7 @@ root.render(
             <AuthProvider>
               <PostProvider>
                 <CommentProvider>
-                 <App />
+                  <App />
                 </CommentProvider>
               </PostProvider>
             </AuthProvider>
