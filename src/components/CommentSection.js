@@ -1,41 +1,41 @@
-import { Accordion, AccordionDetails, AccordionSummary, Button, Typography,  } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
+import { useAuth } from '../contexts/AuthContext';
+import Comment from './Comment';
 
 
 
+const CommentSection = ({props}) => {
 
-const CommentSection = (props) => {
 
-
+  const { getUser } = useAuth()
   const [comments,setComments] = useState([])
+  const currentUser = getUser()
 
-  const fetchComments = async (id) => {
-    const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}/comments`)
-    const data = await response.json()
-    console.log(data)
-    setComments(data)
+  const fetchCommentsByPostId = async (id) => {
+    const resp = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}/comments`)
+    const data = await resp.json()
+    setComments(data) 
   }
 
   useEffect(()=>{
-    fetchComments(props.props)
+    fetchCommentsByPostId(props)
   },[])
-
+ 
   return (
     <div>
       <Accordion>
-        <AccordionSummary
+        <AccordionSummary 
           expandIcon={<ExpandMore />}
           aria-controls="comments-panel-content"
           id="comments-panel-header"
         >
-          <Typography >Comments</Typography>
+        <Typography >Comments</Typography>
         </AccordionSummary>
         <AccordionDetails>
           {comments.map((comment, index) => (
-            <Typography key={index}>{comment.name} 
-            <Button>Delete</Button>
-            </Typography>
+            <Comment key={comment.id} props={comment} />
           ))}
         </AccordionDetails>
       </Accordion>

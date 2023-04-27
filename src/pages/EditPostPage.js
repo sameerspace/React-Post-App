@@ -2,23 +2,20 @@ import ResponsiveAppBar from "../components/AppBar";
 import { Button, Container, Stack, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import { usePosts } from "../contexts/PostContext";
 
 const EditPostPage = () => {
-
     const navigate = useNavigate()
     const location = useLocation()
     const post = location.state.props.post || {} 
-
+    const { updatePost } = usePosts()
     const [title, setTitle] = useState(post.title)
-    const [body,setBody] = useState(post.body)
-
+    const [body, setBody] = useState(post.body)
 
     const editPost = () => {
         post.title = title
         post.body = body
-        console.log('New Post V')
-        console.log(post)
+        updatePost(post)
         navigate('/posts')
     }
     
@@ -43,7 +40,7 @@ const EditPostPage = () => {
                         multiline
                         onChange={(e)=> setBody(e.target.value)}
                     />
-                    <Button sx={{maxWidth:250}} variant="contained" onClick={editPost} >Create Post</Button>
+                    <Button sx={{maxWidth:250}} variant="contained" onClick={editPost} >Edit Post</Button>
                 </Stack>
             </Container>
        </>
