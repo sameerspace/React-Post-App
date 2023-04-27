@@ -16,9 +16,9 @@ const CommentProvider = ({children}) => {
     const addComment = comment => {
         setComments([...comments,comment])
     }
-
+    
     const updateComment = newComment => {
-        setComments(comments.map((comment)=> ([comment.id === newComment.id ? newComment: comment])))
+        setComments(comments.map((comment)=> (comment.id === newComment.id ? newComment: comment)))
     }
 
     const deleteComment = commentId => {

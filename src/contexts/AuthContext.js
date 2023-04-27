@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 
@@ -8,10 +8,7 @@ export const useAuth = () =>  useContext(AuthContext)
 
 
 
-const AuthProvider = ({children}) => {
-    
-    const [currentUser, setCurrentUser] = useState({id:null,username:null,password:null,email:null})
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
+const AuthProvider = ({children}) => {    
     const navigate = useNavigate()
     const generateId = () => Math.ceil(Math.random() * 100000)
 
@@ -24,8 +21,6 @@ const AuthProvider = ({children}) => {
         }        
         localStorage.setItem('user', JSON.stringify(user))
         localStorage.setItem('isLogged', JSON.stringify(true))
-        setCurrentUser(user)
-        setIsLoggedIn(true)
         navigate('/posts')
     }
 
@@ -34,7 +29,6 @@ const AuthProvider = ({children}) => {
         if(user){
             if(user.username === username && user.password === password){
                 localStorage.setItem('isLogged',JSON.stringify(true))
-                setIsLoggedIn(true)
                 navigate('/posts')
             }else{
                 console.log('Credentials Do Not MAtch')
@@ -45,13 +39,23 @@ const AuthProvider = ({children}) => {
 
     }
 
+    const getUser = () => {
+        let user = localStorage.getItem('user')
+        if(user){
+            return JSON.parse(user)
+        }
+        return {}
+    }
+
     const logout = ()=>{
-        setIsLoggedIn(false)
+        localStorage.setItem('isLogged',JSON.stringify(false))
         navigate('/login')
     }
 
+    const userIsLoggedIn = () => JSON.parse(localStorage.getItem('isLogged'))
+
     return (  
-        <AuthContext.Provider value={{currentUser,isLoggedIn,register,login,logout,}}>
+        <AuthContext.Provider value={{getUser,userIsLoggedIn,register,login,logout,generateId}}>
             {children}
         </AuthContext.Provider>
     );
