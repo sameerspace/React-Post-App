@@ -3,11 +3,11 @@ import PostItem from "./PostItem";
 import { usePosts } from "../contexts/PostContext";
 
 const MyPostList = () => {    
-    const { getMyPosts } = usePosts()
+    const { posts } = usePosts()
 
     return ( 
         <List>
-            {getMyPosts().map((post,index)=>(
+            {posts.map((post,index)=>(
                 <PostItem key={index} post={post} ></PostItem>
             ))}
         </List>

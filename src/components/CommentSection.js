@@ -1,42 +1,28 @@
-import { Accordion, AccordionDetails, AccordionSummary, Button, Stack, TextField, Typography,  } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
-import { useComments } from '../contexts/CommentContext';
+import { useAuth } from '../contexts/AuthContext';
+import Comment from './Comment';
 
 
 
-const CommentSection = (id) => {
-
-  const {comments, addComment,fetchAndSetCommentsByPostId, deleteComment } = useComments()
-
-  const [nameVal,setNameVal] = useState()
-
-  let user = JSON.parse(localStorage.getItem('user'))
+const CommentSection = ({props}) => {
 
 
-  const initComments = async () => {
-    await fetchAndSetCommentsByPostId(id.props)
-  }
+  const { getUser } = useAuth()
+  const [comments,setComments] = useState([])
+  const currentUser = getUser()
 
-
-  const createComment = (name) => {
-    
-
-    let comment = {
-      postId: id,
-      id : 25,
-      name: name,
-      email: user.email,
-      body: "Sample Body",
-    }
-
-    addComment(comment)
+  const fetchCommentsByPostId = async (id) => {
+    const resp = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}/comments`)
+    const data = await resp.json()
+    setComments(data) 
   }
 
   useEffect(()=>{
-    initComments()
-  })
-
+    fetchCommentsByPostId(props)
+  },[])
+ 
   return (
     <div>
       <Accordion>
@@ -49,22 +35,9 @@ const CommentSection = (id) => {
         </AccordionSummary>
         <AccordionDetails>
           {comments.map((comment, index) => (
-            <Typography key={index}>{comment.name} 
-            { user.email === comment.email ? <Button onClick={()=> deleteComment(comment.id)} >Delete</Button> : null }
-            </Typography>
+            <Comment key={comment.id} props={comment} />
           ))}
         </AccordionDetails>
-        <Stack direction={'row'}>
-          <TextField 
-          fullWidth
-          onChange={(e)=>setNameVal(e.target.value)}
-          >
-          </TextField>
-          <Button
-            onClick={()=>createComment(nameVal)}
-            variant='contained'
-          >Add</Button>
-        </Stack>
       </Accordion>
     </div>
   );
