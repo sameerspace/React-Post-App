@@ -40,7 +40,7 @@ const EditPostPage = () => {
                         multiline
                         onChange={(e)=> setBody(e.target.value)}
                     />
-                    <Button sx={{maxWidth:250}} variant="contained" onClick={editPost} >Create Post</Button>
+                    <Button sx={{maxWidth:250}} variant="contained" onClick={editPost} >Edit Post</Button>
                 </Stack>
             </Container>
        </>

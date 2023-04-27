@@ -1,17 +1,7 @@
-import { useEffect } from 'react';
 import ResponsiveAppBar from '../components/AppBar'
 import PostList from '../components/PostList';
-import { useAuth } from '../contexts/AuthContext';
-import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
-    const auth = useAuth()
-    const navigate = useNavigate()
-
-    useEffect(()=>{
-        if(!auth.isLoggedIn)  navigate('/login')
-    },[auth])
-    
     return ( 
         <>
             <ResponsiveAppBar></ResponsiveAppBar>

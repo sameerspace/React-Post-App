@@ -6,8 +6,8 @@ import { usePosts } from "../contexts/PostContext";
 
 const CreatePostPage = () => {
     const navigate = useNavigate()
-    const [title, setTitle] = useState()
-    const [body, setBody] = useState()
+    const [title, setTitle] = useState("")
+    const [body, setBody] = useState("")
     const { addPost } = usePosts()
     
     const generateId = () => Math.ceil(Math.random() * 1000)
@@ -15,6 +15,11 @@ const CreatePostPage = () => {
     const createPost = ()=>{
         
         const user = JSON.parse(localStorage.getItem('user'))
+
+        if(title == "" || body == ""){
+            alert('Title or Body Cannot be null')
+            return
+        }
 
         let post = {
             'id': generateId(),

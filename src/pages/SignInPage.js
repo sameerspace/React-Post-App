@@ -6,11 +6,15 @@ import { useAuth } from "../contexts/AuthContext";
 const SignInPage = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-
     const auth = useAuth()
 
-    const loginUser = () => auth.login(username,password)
-
+    const loginUser = () => {
+        if(username === '' || password === ''){
+            alert('Username or Password cant be empty')
+            return
+        }
+        auth.login(username,password)
+    }
 
     return (  
         <>
